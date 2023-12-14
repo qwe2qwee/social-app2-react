@@ -3,6 +3,10 @@ import "./globals.css";
 import { Route, Routes } from "react-router-dom";
 import AuthLayout from "./_auth/AuthLayout";
 import { Home } from "./_root/pages";
+import { Toaster } from "@/components/ui/toaster"
+
+
+
 
 
 import RootLayout from "./_root/RootLayout";
@@ -28,6 +32,7 @@ const App = () => {
         </Route>
       
       </Routes>
+      <Toaster/>
     </main>
   );
 };
