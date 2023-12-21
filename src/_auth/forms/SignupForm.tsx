@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
 import  Loader  from "../../components/shared/Loader";
@@ -26,17 +27,25 @@ const SignupForm = () => {
     },
   });
 
+  const {toast} = useToast()
+
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignupValidation>) =>{
     const newUser = await createUserAccount(values);
-    console.log(newUser);
+    if (!newUser) {
+      toast (
+        {
+          title:"Sceduled Catch up",
+          description:"friday, February 10, 2023",
+        }
+        )
+    }
     
 
   }
   return (
     <Form {...form}>
       <div className='sm:w-420 flex-center flex-col'>
-        <img src='/assets/images/logo.svg' alt='logo' />
         <h2 className='h3-bold md:h2-bold pt-5 sm:pt-12'>
           Create a new account
         </h2>
