@@ -11,7 +11,7 @@ import {
   signInAccount,
   getCurrentUser,
   signOutAccount,
-  getUsers,
+  // getUsers,
   createPost,
   getPostById,
   updatePost,
@@ -22,7 +22,7 @@ import {
   updateUser,
   getRecentPosts,
   // getInfinitePosts,
-  searchPosts,
+  // searchPosts,
   savePost,
   deleteSavedPost,
 } from "@/lib/appwrite/api";
