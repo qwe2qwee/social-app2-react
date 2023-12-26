@@ -25,36 +25,33 @@ const LeftSidebar = () => {
   };
 
   return (
-    <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
-          <img
-            src="/assets/images/logo.svg"
-            alt="logo"
-            width={170}
-            height={36}
-          />
+    <nav className='leftsidebar'>
+      <div className='flex flex-col gap-11'>
+        <Link to='/' className='flex gap-3 items-center'>
+          <h1>
+            <span className='text-blue-400'>H.S</span> media
+          </h1>
         </Link>
 
         {isLoading || !user.email ? (
-          <div className="h-14">
+          <div className='h-14'>
             <Loader />
           </div>
         ) : (
-          <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
+          <Link to={`/profile/${user.id}`} className='flex gap-3 items-center'>
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
-              alt="profile"
-              className="h-14 w-14 rounded-full"
+              alt='profile'
+              className='h-14 w-14 rounded-full'
             />
-            <div className="flex flex-col">
-              <p className="body-bold">{user.name}</p>
-              <p className="small-regular text-light-3">@{user.username}</p>
+            <div className='flex flex-col '>
+              <p className='body-bold'>{user.name}</p>
+              <p className='small-regular text-light-3'>@{user.username}</p>
             </div>
           </Link>
         )}
 
-        <ul className="flex flex-col gap-6">
+        <ul className='flex flex-col gap-6'>
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
@@ -66,7 +63,7 @@ const LeftSidebar = () => {
                 }`}>
                 <NavLink
                   to={link.route}
-                  className="flex gap-4 items-center p-4">
+                  className='flex gap-4 items-center p-4'>
                   <img
                     src={link.imgURL}
                     alt={link.label}
@@ -83,11 +80,11 @@ const LeftSidebar = () => {
       </div>
 
       <Button
-        variant="ghost"
-        className="shad-button_ghost"
+        variant='ghost'
+        className='shad-button_ghost'
         onClick={(e) => handleSignOut(e)}>
-        <img src="/assets/icons/logout.svg" alt="logout" />
-        <p className="small-medium lg:base-medium">Logout</p>
+        <img src='/assets/icons/logout.svg' alt='logout' />
+        <p className='small-medium lg:base-medium'>Logout</p>
       </Button>
     </nav>
   );
