@@ -80,7 +80,7 @@ export async function getAccount() {
   }
 }
 
-// ============================== GET USER
+// ========================= GET USER
 export async function getCurrentUser() {
   try {
     const currentAccount = await getAccount();
@@ -101,7 +101,7 @@ export async function getCurrentUser() {
     return null;
   }
 }
-
+ 
 // ============================== SIGN OUT
 export async function signOutAccount() {
   try {
@@ -162,7 +162,7 @@ export async function createPost(post: INewPost) {
   }
 }
 
-// ======================== UPLOAD FILE
+// ===================== UPLOAD FILE
 export async function uploadFile(file: File) {
   try {
     const uploadedFile = await storage.createFile(

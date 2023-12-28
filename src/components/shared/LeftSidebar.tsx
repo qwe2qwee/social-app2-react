@@ -28,8 +28,8 @@ const LeftSidebar = () => {
     <nav className='leftsidebar'>
       <div className='flex flex-col gap-11'>
         <Link to='/' className='flex gap-3 items-center'>
-          <h1>
-            <span className='text-blue-400'>H.S</span> media
+          <h1 className=" text-3xl leading-none">
+            <span className='text-blue-400 text-4xl leading-none'>H.S</span> media
           </h1>
         </Link>
 
