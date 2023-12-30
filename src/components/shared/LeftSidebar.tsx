@@ -29,7 +29,7 @@ const LeftSidebar = () => {
       <div className='flex flex-col gap-11'>
         <Link to='/' className='flex gap-3 items-center'>
           <h1 className=" text-3xl leading-none">
-            <span className='text-blue-400 text-4xl leading-none'>H.S</span> media
+            <span className='text-light-3 text-4xl leading-none'>H.S</span> media
           </h1>
         </Link>
 
