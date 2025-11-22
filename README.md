@@ -1,157 +1,235 @@
-# 📱 Social Media App
+# Social Media App
 
-A modern, full-featured social media application built with React, TypeScript, and Appwrite. This platform allows users to share posts, interact with content, explore new posts, and manage their profiles.
+A modern, full-stack social media application built with React, TypeScript, and Appwrite. Share posts, connect with others, and explore content in a beautiful, responsive interface.
 
-## ✨ Features
+## Features
 
-- **User Authentication** - Secure sign up and sign in functionality
-- **Create & Share Posts** - Share your thoughts with text and images
-- **Explore Feed** - Discover new content from other users
-- **Like & Save Posts** - Interact with content you love
-- **User Profiles** - Personalized profile pages for each user
-- **Edit Profile** - Update your profile information and avatar
-- **Post Details** - View detailed post information and interactions
-- **All Users** - Browse and discover other users on the platform
-- **Saved Posts** - Quick access to your bookmarked content
-- **Responsive Design** - Fully responsive UI that works on all devices
+### Core Functionality
+- **Authentication** - Secure sign up/sign in with email and password
+- **Posts** - Create, edit, and delete posts with images
+- **Social Interactions** - Like and save posts
+- **Explore** - Discover new content with infinite scroll
+- **Search** - Search posts by caption
+- **User Profiles** - View and update profile information
+- **Responsive Design** - Works seamlessly on mobile and desktop
 
-## 🛠️ Tech Stack
+### Pages
+| Page | Description |
+|------|-------------|
+| Home | Feed showing recent posts from all users |
+| Explore | Discover new posts with search functionality |
+| Saved | View your bookmarked posts |
+| All Users | Browse all registered users |
+| Create Post | Share new content with images |
+| Post Details | View post with full interactions |
+| Profile | User profile with their posts |
+| Update Profile | Edit profile information and avatar |
 
-- **Frontend Framework:** React 18 with TypeScript
-- **Build Tool:** Vite
-- **Backend:** Appwrite (BaaS)
-- **Routing:** React Router v6
-- **State Management:** TanStack Query (React Query)
-- **Styling:** Tailwind CSS
-- **UI Components:** Radix UI primitives
-- **Form Handling:** React Hook Form with Zod validation
-- **Icons:** Lucide React
+## Tech Stack
 
-## 📋 Prerequisites
+| Category | Technology |
+|----------|------------|
+| Framework | React 18 |
+| Language | TypeScript |
+| Build Tool | Vite |
+| Backend | Appwrite (BaaS) |
+| Routing | React Router v6 |
+| Data Fetching | TanStack Query (React Query) |
+| Styling | Tailwind CSS |
+| UI Components | Radix UI |
+| Forms | React Hook Form + Zod |
+| Icons | Lucide React |
 
-Before you begin, ensure you have the following installed:
-- Node.js (v18 or higher)
+## Prerequisites
+
+- Node.js v18+
 - npm or yarn
-- An Appwrite account and project
+- Appwrite account and project
 
-## 🚀 Getting Started
+## Environment Variables
 
-### 1. Clone the repository
+Create a `.env.local` file in the root directory:
+
+```env
+VITE_APPWRITE_URL=https://cloud.appwrite.io/v1
+VITE_APPWRITE_PROJECT_ID=your_project_id
+VITE_APPWRITE_DATABASE_ID=your_database_id
+VITE_APPWRITE_STORAGE_ID=your_storage_bucket_id
+VITE_APPWRITE_USER_COLLECTION_ID=your_users_collection_id
+VITE_APPWRITE_POST_COLLECTION_ID=your_posts_collection_id
+VITE_APPWRITE_SAVES_COLLECTION_ID=your_saves_collection_id
+```
+
+## Appwrite Setup
+
+### 1. Create Database Collections
+
+**Users Collection** - Attributes:
+- `accountId` (string, required)
+- `name` (string, required)
+- `username` (string)
+- `email` (string, required)
+- `bio` (string)
+- `imageUrl` (url)
+- `imageId` (string)
+
+**Posts Collection** - Attributes:
+- `creator` (relationship to Users)
+- `caption` (string, required)
+- `imageUrl` (url, required)
+- `imageId` (string, required)
+- `location` (string)
+- `tags` (string array)
+- `likes` (relationship to Users, many-to-many)
+
+**Saves Collection** - Attributes:
+- `user` (relationship to Users)
+- `post` (relationship to Posts)
+
+### 2. Create Storage Bucket
+- Create a bucket for media uploads
+- Enable file preview permissions
+
+### 3. Configure Authentication
+- Enable Email/Password authentication
+
+## Installation
 
 ```bash
+# Clone the repository
 git clone <repository-url>
 cd social-app2-react
-```
 
-### 2. Install dependencies
-
-```bash
+# Install dependencies
 npm install
-```
 
-### 3. Configure Appwrite
-
-Create an Appwrite project and set up the following:
-- Database with required collections (users, posts, saves, etc.)
-- Storage bucket for media uploads
-- Authentication settings
-
-Update the Appwrite configuration in `src/lib/appwrite/config.ts` with your project details.
-
-### 4. Run the development server
-
-```bash
+# Start development server
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The app will be available at `http://localhost:5173`
 
-## 📜 Available Scripts
+## Scripts
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint to check code quality
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 src/
-├── _auth/              # Authentication pages and layouts
-│   ├── forms/          # Sign in and sign up forms
-│   └── AuthLayout.tsx  # Authentication layout wrapper
-├── _root/              # Main application pages
-│   ├── pages/          # All application pages
-│   └── RootLayout.tsx  # Main layout with navigation
-├── components/         # Reusable components
-│   ├── forms/          # Form components
-│   ├── shared/         # Shared components (Topbar, Sidebar, etc.)
-│   └── ui/             # UI primitives
-├── context/            # React context providers
-├── hooks/              # Custom React hooks
-├── lib/                # Utilities and configurations
-│   ├── appwrite/       # Appwrite API and config
-│   ├── react-query/    # TanStack Query setup
-│   └── validation/     # Zod validation schemas
-├── types/              # TypeScript type definitions
-└── App.tsx             # Main application component
+├── _auth/                    # Authentication module
+│   ├── forms/
+│   │   ├── SigninForm.tsx
+│   │   └── SignupForm.tsx
+│   └── AuthLayout.tsx
+│
+├── _root/                    # Main app module
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── Explore.tsx
+│   │   ├── Saved.tsx
+│   │   ├── AllUsers.tsx
+│   │   ├── CreatePost.tsx
+│   │   ├── EditPost.tsx
+│   │   ├── PostDetails.tsx
+│   │   ├── Profile.tsx
+│   │   ├── UpdateProfile.tsx
+│   │   └── LikedPosts.tsx
+│   └── RootLayout.tsx
+│
+├── components/
+│   ├── forms/
+│   │   └── PostForm.tsx
+│   ├── shared/               # Reusable components
+│   │   ├── Topbar.tsx
+│   │   ├── LeftSidebar.tsx
+│   │   ├── Bottombar.tsx
+│   │   ├── PostCard.tsx
+│   │   ├── PostStats.tsx
+│   │   ├── UserCard.tsx
+│   │   ├── GridPostList.tsx
+│   │   ├── FileUploader.tsx
+│   │   ├── ProfileUploader.tsx
+│   │   └── Loader.tsx
+│   └── ui/                   # UI primitives
+│
+├── context/
+│   └── AuthContext.tsx       # Authentication context
+│
+├── hooks/
+│   └── useDebounce.ts
+│
+├── lib/
+│   ├── appwrite/
+│   │   ├── api.ts            # API functions
+│   │   └── config.ts         # Appwrite client setup
+│   ├── react-query/
+│   │   ├── queries.ts        # Query hooks
+│   │   ├── queryKeys.ts
+│   │   └── QueryProvider.tsx
+│   ├── validation/
+│   │   └── index.ts          # Zod schemas
+│   └── utils.ts
+│
+├── types/
+│   └── index.ts              # TypeScript types
+│
+├── App.tsx
+├── main.tsx
+└── globals.css
 ```
 
-## 🔑 Key Pages
+## API Functions
 
-- `/` - Home feed
-- `/explore` - Explore new posts
-- `/saved` - Saved posts
-- `/all-users` - Browse all users
-- `/create-post` - Create a new post
-- `/posts/:id` - View post details
-- `/profile/:id` - User profile
-- `/update-profile/:id` - Edit profile
-- `/sign-in` - Sign in page
-- `/sign-up` - Sign up page
+The app provides these Appwrite API integrations:
 
-## 🎨 Styling
+### Authentication
+- `createUserAccount()` - Register new user
+- `signInAccount()` - Login user
+- `signOutAccount()` - Logout user
+- `getCurrentUser()` - Get current session user
 
-This project uses:
-- **Tailwind CSS** for utility-first styling
-- **CSS Variables** for theming
-- **Tailwind Merge** for conditional class merging
-- **Class Variance Authority** for component variants
+### Posts
+- `createPost()` - Create new post with image
+- `updatePost()` - Update existing post
+- `deletePost()` - Delete post and associated image
+- `getRecentPosts()` - Fetch recent posts
+- `getInfinitePosts()` - Paginated posts for infinite scroll
+- `searchPosts()` - Search posts by caption
+- `getPostById()` - Get single post
+- `getUserPosts()` - Get posts by user
 
-## 🔐 Authentication
+### Interactions
+- `likePost()` - Like/unlike a post
+- `savePost()` - Save post to bookmarks
+- `deleteSavedPost()` - Remove from bookmarks
 
-Authentication is handled through Appwrite's authentication service with:
-- Email/password authentication
-- Session management
-- Protected routes
-- Auth context for global state
+### Users
+- `getUsers()` - Get all users
+- `getUserById()` - Get user by ID
+- `updateUser()` - Update user profile
 
-## 📱 Responsive Design
+## Routes
 
-The application is fully responsive with:
-- Mobile-first approach
-- Responsive navigation (top bar on mobile, sidebar on desktop)
-- Bottom navigation bar for mobile devices
-- Optimized layouts for different screen sizes
+```
+/                    → Home (protected)
+/explore            → Explore posts (protected)
+/saved              → Saved posts (protected)
+/all-users          → All users (protected)
+/create-post        → Create post (protected)
+/update-post/:id    → Edit post (protected)
+/posts/:id          → Post details (protected)
+/profile/:id        → User profile (protected)
+/update-profile/:id → Edit profile (protected)
+/sign-in            → Sign in (public)
+/sign-up            → Sign up (public)
+```
 
-## 🤝 Contributing
+## License
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 👨‍💻 Development
-
-Built with modern web technologies and best practices:
-- TypeScript for type safety
-- ESLint for code quality
-- Component-based architecture
-- Custom hooks for reusability
-- Optimistic updates with React Query
-- Form validation with Zod
-
----
-
-Made with ❤️ using React and Appwrite
+MIT License
